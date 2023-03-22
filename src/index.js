@@ -14,6 +14,7 @@ const gallery = new SimpleLightbox('.gallery a');
 refs.formEl.addEventListener('submit', seachElements);
 refs.loadBtnEl.addEventListener('click', paginatePixabay);
 window.addEventListener('scroll', throttle(endlessScroll, DEBOUNCE_DELAY));
+refs.loaderEl.classList.remove('loader-flex');
 
 async function seachElements(event) { 
     event.preventDefault();
@@ -51,6 +52,8 @@ async function paginatePixabay () {
         refs.cardsEl.insertAdjacentHTML('beforeend', generateMarkapCard(collection.hits));
         gallery.refresh();
         Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+
+        refs.loaderEl.classList.add('loader-flex');
         
     } catch (error){
         console.log(error);

@@ -44,6 +44,9 @@
     justify-content: center;
     text-align: center;
     display: flex;
+    width: 220px;
+    height: 80px;
+    align-items: center;
 }
 
 .img:hover {
@@ -58,4 +61,13 @@ body {
 
 .info {
     padding-left: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.loader-flex {
+    display: flex;
+    justify-content: center;
 }
