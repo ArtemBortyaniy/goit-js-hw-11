@@ -9,7 +9,7 @@ const saearchParams = new URLSearchParams({
 
 async function fetchPixabay(collection) {
     const response = await fetch(`${BASE_PIXABAY_URL}?q=${collection}&${saearchParams}&page=${page}&per_page=40`)
-    const newCollection = response.json();
+    const newCollection = await response.json();
 
     return newCollection;
 }

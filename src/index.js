@@ -10,6 +10,8 @@ let totalHits = 40;
 refs.formEl.addEventListener('submit', seachElements);
 refs.loadBtnEl.addEventListener('click', paginatePixabay);
 
+const gallery = new SimpleLightbox('.gallery a');
+
 function seachElements(event) {
     event.preventDefault();
     page = 1;
@@ -20,9 +22,10 @@ function seachElements(event) {
         if(data.hits.length === 0) {
             Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
         }
-
+        
         refs.cardsEl.insertAdjacentHTML('beforeend', generateMarkapCard(data.hits));
         refs.loadBtnEl.classList = 'btn-block';
+        gallery.refresh();
     });
 }
 
@@ -35,9 +38,8 @@ function paginatePixabay () {
             Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
             return
         }
-
         refs.cardsEl.insertAdjacentHTML('beforeend', generateMarkapCard(data.hits));
-
+        gallery.refresh();
         Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
     });
 }
@@ -75,7 +77,6 @@ function updateGallery () {
     refs.cardsEl.innerHTML = ''
 }
 
-new SimpleLightbox('.photo-card a', { captionDelay:250});
 
 
 
