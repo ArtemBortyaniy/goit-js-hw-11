@@ -1,7 +1,6 @@
 import { refs } from './services/refs';
 import { fetchPixabay} from './services/fetchPixabay';
 import Notiflix from 'notiflix';
-// import axios from 'axios';
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
@@ -27,7 +26,7 @@ function seachElements(event) {
     });
 }
 
-function paginatePixabay (event) {
+function paginatePixabay () {
     page = 1 + page;
     totalHits += 40;
     
@@ -76,15 +75,7 @@ function updateGallery () {
     refs.cardsEl.innerHTML = ''
 }
 
-new SimpleLightbox('.gallery a', { captionDelay:250});
+new SimpleLightbox('.photo-card a', { captionDelay:250});
 
-const { height: cardHeight } = document
-  .querySelector(".gallery")
-  .firstElementChild.getBoundingClientRect();
-
-window.scrollBy({
-  top: cardHeight * 2,
-  behavior: "smooth",
-});
 
 
