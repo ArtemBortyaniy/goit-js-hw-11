@@ -1,5 +1,5 @@
 import { refs } from './services/refs';
-import { fetchPixabay} from './services/fetchPixabay';
+import { fetchPixabay, updatePage} from './services/fetchPixabay';
 import Notiflix from 'notiflix';
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
@@ -17,7 +17,6 @@ window.addEventListener('scroll', throttle(endlessScroll, DEBOUNCE_DELAY));
 
 async function seachElements(event) { 
     event.preventDefault();
-    page = 1;
     updateGallery();
     categorySearch = event.target.searchQuery.value;
 
@@ -38,7 +37,7 @@ async function seachElements(event) {
 }
 
 async function paginatePixabay () {
-    page = 1 + page;
+    updatePage();
     totalHits += 40;
     
     try {

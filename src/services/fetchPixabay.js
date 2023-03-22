@@ -7,6 +7,8 @@ const saearchParams = new URLSearchParams({
     safesearch : 'true',
 });
 
+let page = 1;
+
 async function fetchPixabay(collection) {
     const response = await axios(`${BASE_PIXABAY_URL}?q=${collection}&${saearchParams}&page=${page}&per_page=40`)
     const newCollection = await response.data;
@@ -14,4 +16,8 @@ async function fetchPixabay(collection) {
     return newCollection;
 }
 
-export { fetchPixabay };
+function updatePage() {
+    return page += 1;
+}
+
+export { fetchPixabay, updatePage};
