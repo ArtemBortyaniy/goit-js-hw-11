@@ -7,7 +7,6 @@ import throttle from 'lodash.throttle';
 
 let categorySearch = '';
 let totalHits = 40;
-let page = null;
 
 const DEBOUNCE_DELAY = 1500;
 const gallery = new SimpleLightbox('.gallery a');
