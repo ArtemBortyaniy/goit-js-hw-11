@@ -3,14 +3,16 @@ import { fetchPixabay} from './services/fetchPixabay';
 import Notiflix from 'notiflix';
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
+import throttle from 'lodash.throttle';
 
 let categorySearch = '';
 let totalHits = 40;
+const DEBOUNCE_DELAY = 1500;
+const gallery = new SimpleLightbox('.gallery a');
 
 refs.formEl.addEventListener('submit', seachElements);
 refs.loadBtnEl.addEventListener('click', paginatePixabay);
-
-const gallery = new SimpleLightbox('.gallery a');
+window.addEventListener('scroll', throttle(endlessScroll, DEBOUNCE_DELAY));
 
 async function seachElements(event) { 
     event.preventDefault();
@@ -55,6 +57,14 @@ async function paginatePixabay () {
     }
 }
 
+function endlessScroll () {
+    const documentRect = document.documentElement.getBoundingClientRect();
+    
+    if(documentRect.bottom < document.documentElement.clientHeight + 100) {
+        paginatePixabay();
+    }
+}
+
 function generateMarkapCard (data) {
     return [...data].map(({webformatURL, largeImageURL, tags, likes, views, comments, downloads}) => { 
         return `
@@ -87,5 +97,6 @@ function generateMarkapCard (data) {
 function updateGallery () {
     refs.cardsEl.innerHTML = '';
 }
+
 
 
