@@ -5,12 +5,13 @@ const saearchParams = new URLSearchParams({
     image_type : 'photo',
     orientation : 'horizontal',
     safesearch : 'true',
+    per_page : '40',
 });
 
 let page = 1;
 
 async function fetchPixabay(collection) {
-    const response = await axios(`${BASE_PIXABAY_URL}?q=${collection}&${saearchParams}&page=${page}&per_page=40`)
+    const response = await axios(`${BASE_PIXABAY_URL}?q=${collection}&${saearchParams}&page=${page}`)
     const newCollection = await response.data;
 
     return newCollection;
