@@ -5,6 +5,7 @@ import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 import throttle from 'lodash.throttle';
 import { generateMarkapCard } from './services/generateMarkapCard';
+import InfiniteScroll from 'infinite-scroll';
 
 let categorySearch = '';
 
@@ -79,7 +80,7 @@ async function paginatePixabay () {
 
 function updateGallery () {
     refs.cardsEl.innerHTML = '';
-}
+}   
 
 
 
