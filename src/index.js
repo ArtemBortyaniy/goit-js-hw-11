@@ -5,7 +5,6 @@ import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 import throttle from 'lodash.throttle';
 import { generateMarkapCard } from './services/generateMarkapCard';
-import InfiniteScroll from 'infinite-scroll';
 
 let categorySearch = '';
 
@@ -14,8 +13,7 @@ const gallery = new SimpleLightbox('.gallery a');
 
 refs.formEl.addEventListener('submit', seachElements);
 refs.loadBtnEl.addEventListener('click', paginatePixabay);
-// window.addEventListener('scroll', throttle(endlessScroll, DEBOUNCE_DELAY));
-// refs.loaderEl.classList.remove('loader-flex');
+window.addEventListener('scroll', throttle(endlessScroll, DEBOUNCE_DELAY));
 
 async function seachElements(event) { 
     event.preventDefault();
@@ -62,21 +60,19 @@ async function paginatePixabay () {
     
         refs.cardsEl.insertAdjacentHTML('beforeend', generateMarkapCard(collection.hits));
         gallery.refresh();
-
-        // refs.loaderEl.classList.add('loader-flex');
         
-    } catch (error){
-        console.log(error);
+    } catch (err){
+        console.error(err);
     }
 }
 
-// function endlessScroll () {
-//     const documentRect = document.documentElement.getBoundingClientRect();
+function endlessScroll () {
+    const documentRect = document.documentElement.getBoundingClientRect();
     
-//     if(documentRect.bottom < document.documentElement.clientHeight + 100) {
-//         paginatePixabay();
-//     }
-// }
+    if(documentRect.bottom < document.documentElement.clientHeight + 100) {
+        paginatePixabay();
+    }
+}
 
 function updateGallery () {
     refs.cardsEl.innerHTML = '';
